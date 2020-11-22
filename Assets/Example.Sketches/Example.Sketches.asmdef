@@ -3,7 +3,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "AIR.Sketch"
+        "AIR.Sketch",
+        "AIR.Flume"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,6 +1,7 @@
 {
     "name": "AIR.Sketch",
     "references": [
+        "AIR.Flume"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

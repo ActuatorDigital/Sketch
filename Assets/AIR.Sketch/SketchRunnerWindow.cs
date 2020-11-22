@@ -43,6 +43,7 @@ namespace AIR.Sketch
         private void OnInspectorUpdate()
         {
             if (_selectedSketch != null) {
+                // TODO: Resolve and inject dependencies.
                 SketchRunner.RunSketch(_selectedSketch);
                 EditorPrefs.SetString(RUNNING_SKETCH_NAME, _selectedSketch.Name);
                 _selectedSketch = null;
@@ -51,6 +52,7 @@ namespace AIR.Sketch
 
         private void OnDrawSketchesFixtures()
         {
+            // TODO: Expand/collapse groups.
             foreach (var sketchAssembly in _sketches) {
                 GUILayout.Label(sketchAssembly.AssemblyName);
                 foreach (var sketchFixture in sketchAssembly.Fixtures) {
@@ -76,9 +78,8 @@ namespace AIR.Sketch
             var buttonHeight = GUILayout.Height(textHeight);
             var buttonWidth = GUILayout.Width(textHeight);
             var runSketch = GUILayout.Button(">", buttonHeight, buttonWidth);
-            if (runSketch) {
+            if (runSketch) 
                 _selectedSketch = sketchFixture.TypeInfo;
-            }
 
             GUILayout.BeginVertical();
 
