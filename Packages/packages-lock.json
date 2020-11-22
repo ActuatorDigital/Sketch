@@ -10,6 +10,12 @@
       },
       "hash": "f5b546b15c1fceff89ff71ffa003d1c774c0392f"
     },
+    "com.air.sketch": {
+      "version": "file:AIR.Sketch",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.collab-proxy": {
       "version": "1.3.9",
       "depth": 0,

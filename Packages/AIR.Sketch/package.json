@@ -1,0 +1,7 @@
+{
+  "name": "com.air.sketch",
+  "displayName": "AIR.Sketch",
+  "version": "0.0.1",
+  "description": "A Sketch Framework for the Unity Editor.",
+  "type": "library"
+}
