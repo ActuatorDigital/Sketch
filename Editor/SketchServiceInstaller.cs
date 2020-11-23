@@ -35,7 +35,7 @@ namespace AIR.Sketch
             var components = GetComponents<MonoBehaviour>();
             foreach (var component in components) {
                 var dependsOnAttributes = (SketchDependsOnAttribute[]) component.GetType()
-                    .GetCustomAttributes(typeof(SketchDependsOnAttribute), false);
+                    .GetCustomAttributes(typeof(SketchDependsOnAttribute), true);
 
                 var sketchHasDependency = dependsOnAttributes.Any();
                 if (sketchHasDependency) {

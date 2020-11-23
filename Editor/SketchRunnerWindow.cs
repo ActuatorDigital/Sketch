@@ -106,6 +106,7 @@ namespace AIR.Sketch
                 if (!assemblyName.EndsWith(".Sketches")) continue;
                 var fixtures = new List<SketchFixture>();
                 foreach (var type in assembly.GetTypes()) {
+                    if (type.IsAbstract) continue;
                     var sketchFixtureAttribute = (SketchFixtureAttribute) Attribute
                         .GetCustomAttribute(type, typeof(SketchFixtureAttribute));
                     if (sketchFixtureAttribute == null) continue;
