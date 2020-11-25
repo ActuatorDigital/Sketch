@@ -113,7 +113,7 @@ namespace AIR.Sketch
 
                     var descriptionAttribute = (SketchDescriptionAttribute) Attribute
                         .GetCustomAttribute(type, typeof(SketchDescriptionAttribute));
-                    var description = descriptionAttribute.Description;
+                    var description = descriptionAttribute?.Description;
 
                     var name = type.FullName;
                     var sketchFixture = new SketchFixture(name, type, description);
