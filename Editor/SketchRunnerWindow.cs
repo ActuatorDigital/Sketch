@@ -87,6 +87,9 @@ namespace AIR.Sketch
             GUILayout.Label(descGUICon, descGUISkin);
 
             GUILayout.EndVertical();
+            var openCode =GUILayout.Button("O", buttonHeight, buttonWidth);
+            if (openCode)
+                SketchAssetOpener.OpenSketch(sketchFixture.TypeInfo);
             GUILayout.EndHorizontal();
         }
 
