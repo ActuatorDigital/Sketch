@@ -7,6 +7,11 @@ namespace AIR.Sketch
 {
     public class SketchRunnerWindow : EditorWindow
     {
+        private Texture2D _playIcon = null;
+        private Texture2D _editIcon = null;
+        private Texture2D _unpinnedIcon = null;
+        private Texture2D _pinnedIcon = null;
+
         private const int BUTTON_WIDTH = 25;
         private const string RUNNING_SKETCH_NAME = "RUNNING_SKETCH_NAME";
 
@@ -31,12 +36,12 @@ namespace AIR.Sketch
                     "Stop " + sketchName,
                     GUILayout.ExpandWidth(true),
                     GUILayout.ExpandHeight(true));
-                if(cancel)
+                if (cancel)
                     EditorApplication.ExitPlaymode();
             } else {
-                _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
+                // _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
                 OnDrawSketchesFixtures();
-                GUILayout.EndScrollView();
+                // GUILayout.EndScrollView();
             }
         }
 
@@ -52,13 +57,64 @@ namespace AIR.Sketch
 
         private void OnDrawSketchesFixtures()
         {
-            // TODO: Expand/collapse groups.
+            DrawSketchAssemblies();
+            DrawPinnedFixtures();
+        }
+
+        private void DrawSketchAssemblies()
+        {
+            _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
+            GUILayout.BeginVertical(EditorStyles.helpBox);
+            foreach (var sketchAssembly in _sketches)
+                DrawSketchAssembly(sketchAssembly);
+            GUILayout.EndVertical();
+            GUILayout.EndScrollView();
+        }
+
+        private void DrawPinnedFixtures()
+        {
+            GUILayout.BeginVertical(EditorStyles.helpBox);
+            GUILayout.BeginHorizontal();
+            Heading("Pinned");
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Clear"))
+                PinnedSketchTracker.ClearPinned();
+            GUILayout.EndHorizontal();
+            HorizontalLine();
             foreach (var sketchAssembly in _sketches) {
-                GUILayout.Label(sketchAssembly.AssemblyName);
-                foreach (var sketchFixture in sketchAssembly.Fixtures) {
-                    DrawSketchRunnerGUIItem(sketchFixture);
+                foreach (var sketchFixure in sketchAssembly.Fixtures) {
+                    if (PinnedSketchTracker.IsPinned(sketchFixure.FullName)) {
+                        DrawSketchRunnerGUIItem(sketchFixure);
+                    }
                 }
             }
+
+            GUILayout.EndVertical();
+        }
+
+        private void DrawSketchAssembly(SketchAssembly sketchAssembly)
+        {
+            HorizontalLine();
+
+            Heading(sketchAssembly.AssemblyName);
+
+            foreach (var sketchFixture in sketchAssembly.Fixtures)
+                DrawSketchRunnerGUIItem(sketchFixture);
+        }
+
+        private static void Heading(string text)
+        {
+            var currentStyle = GUI.skin.label;
+            currentStyle.fontSize = 13;
+            GUILayout.Label(text, currentStyle);
+        }
+
+        private static void HorizontalLine()
+        {
+            GUILayout.Space(3f);
+            Rect rect = EditorGUILayout.GetControlRect(false, 1);
+            EditorGUI.DrawRect(rect, new Color(0.5f, 0.5f, 0.5f, .3f));
+            GUILayout.Space(3f);
         }
 
         private void DrawSketchRunnerGUIItem(SketchFixture sketchFixture)
@@ -76,10 +132,18 @@ namespace AIR.Sketch
 
             var textHeight = nameTextHeight + descriptionTextHeight;
             var buttonHeight = GUILayout.Height(textHeight);
-            var buttonWidth = GUILayout.Width(textHeight);
-            var runSketch = GUILayout.Button(">", buttonHeight, buttonWidth);
-            if (runSketch) 
+            var runButtonWidth = GUILayout.Width(textHeight * 1.4f);
+
+            var playIconContent = new GUIContent(_playIcon);
+            var runSketch = GUILayout.Button(playIconContent, buttonHeight, runButtonWidth);
+            if (runSketch)
                 _selectedSketch = sketchFixture.TypeInfo;
+
+            var openButtonWidth = GUILayout.Width(textHeight);
+            var editIconContent = new GUIContent(_editIcon);
+            var openCode = GUILayout.Button(editIconContent, buttonHeight, openButtonWidth);
+            if (openCode)
+                SketchAssetOpener.OpenSketch(sketchFixture.TypeInfo);
 
             GUILayout.BeginVertical();
 
@@ -87,13 +151,39 @@ namespace AIR.Sketch
             GUILayout.Label(descGUICon, descGUISkin);
 
             GUILayout.EndVertical();
-            var openCode =GUILayout.Button("O", buttonHeight, buttonWidth);
-            if (openCode)
-                SketchAssetOpener.OpenSketch(sketchFixture.TypeInfo);
+
+            var pinButtonSkin = new GUIStyle(GUI.skin.label);
+            if (PinnedSketchTracker.IsPinned(sketchFixture.FullName)) {
+                var unpinnedIconContent = new GUIContent(_pinnedIcon);
+                var unpinClicked = GUILayout.Button(unpinnedIconContent, pinButtonSkin, buttonHeight, openButtonWidth);
+                if (unpinClicked)
+                    PinnedSketchTracker.UnpinSketch(sketchFixture.FullName);
+            } else {
+                var pinnedIconContent = new GUIContent(_unpinnedIcon);
+                var pinClicked = GUILayout.Button(pinnedIconContent, pinButtonSkin, buttonHeight, openButtonWidth);
+                if (pinClicked)
+                    PinnedSketchTracker.PinSketch(sketchFixture.FullName);
+            }
+
             GUILayout.EndHorizontal();
         }
 
-        private void Awake() => RefreshSketchList();
+        private void Awake()
+        {
+            var playIconPath = "Packages/com.air.sketch/Editor/PlayIcon.png";
+            _playIcon = (Texture2D) AssetDatabase.LoadAssetAtPath(playIconPath, typeof(Texture2D));
+
+            var editIconPath = "Packages/com.air.sketch/Editor/EditIcon.png";
+            _editIcon = (Texture2D) AssetDatabase.LoadAssetAtPath(editIconPath, typeof(Texture2D));
+
+            var unpinnedIconPath = "Packages/com.air.sketch/Editor/UnpinnedIcon.png";
+            _unpinnedIcon = (Texture2D) AssetDatabase.LoadAssetAtPath(unpinnedIconPath, typeof(Texture2D));
+
+            var pinnedIconPath = "Packages/com.air.sketch/Editor/PinnedIcon.png";
+            _pinnedIcon = (Texture2D) AssetDatabase.LoadAssetAtPath(pinnedIconPath, typeof(Texture2D));
+
+            RefreshSketchList();
+        }
 
         private void OnFocus() => RefreshSketchList();
 
