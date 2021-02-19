@@ -49,15 +49,24 @@ namespace AIR.Sketch
 
         private ActivatedDependency[] ActivateDependencies(SketchDependsOnAttribute[] dependsOnAttributes)
         {
+            var implementations = new Dictionary<Type, object>();
             List<ActivatedDependency> dependencies = new List<ActivatedDependency>();
             foreach (SketchDependsOnAttribute dependsOnAttribute in dependsOnAttributes) {
                 var serviceImplementation = dependsOnAttribute.ServiceImplementation;
-                var dependency = serviceImplementation.IsSubclassOf(typeof(MonoBehaviour))
-                    ? gameObject.AddComponent(serviceImplementation)
-                    : Activator.CreateInstance(serviceImplementation);
+
+                object dependency;
+                if (implementations.ContainsKey(serviceImplementation)) {
+                    dependency = implementations[serviceImplementation];
+                } else {
+                    dependency = serviceImplementation.IsSubclassOf(typeof(MonoBehaviour))
+                        ? gameObject.AddComponent(serviceImplementation)
+                        : Activator.CreateInstance(serviceImplementation);
+                    implementations.Add(serviceImplementation, dependency);
+                }
+
                 dependencies.Add(new ActivatedDependency {
                     Instance = dependency,
-                    ServiceType = dependsOnAttribute.ServiceType
+                    ServiceType = dependsOnAttribute.ServiceType,
                 });
             }
 
