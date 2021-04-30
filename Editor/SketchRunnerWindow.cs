@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System.Linq;
 
 namespace AIR.Sketch
 {
@@ -18,6 +19,7 @@ namespace AIR.Sketch
         private List<SketchAssembly> _sketches = new List<SketchAssembly>();
         private Vector2 _scrollPosition = Vector2.zero;
         private Type _selectedSketch;
+        private string _searchString;
 
         [MenuItem("Window/General/Sketch Runner", priority = 202)]
         private static void Init()
@@ -57,8 +59,47 @@ namespace AIR.Sketch
 
         private void OnDrawSketchesFixtures()
         {
-            DrawSketchAssemblies();
+            DrawSketchSearch();
+            if (!string.IsNullOrEmpty(_searchString))
+                DrawFilteredSketches();
+            else
+                DrawSketchAssemblies();
+
             DrawPinnedFixtures();
+        }
+
+        private void DrawSketchSearch()
+        {
+            GUILayout.BeginHorizontal(EditorStyles.toolbar);
+            GUILayout.Label("Filter:", GUILayout.ExpandWidth(false));
+            const string FilterSearchTextControlName = "SketchFilterSearchBoxName";
+            GUI.SetNextControlName(FilterSearchTextControlName);
+            _searchString = GUILayout.TextField(_searchString, EditorStyles.toolbarSearchField);
+            if (GUILayout.Button("", GUI.skin.FindStyle("ToolbarSeachCancelButton")))
+            {
+                // Remove focus if cleared
+                _searchString = string.Empty;
+                GUI.FocusControl(null);
+            }
+
+            GUILayout.EndHorizontal();
+        }
+
+        private void DrawFilteredSketches()
+        {
+            var actualSearchString = _searchString.Trim();
+
+            var filteredSketches = _sketches
+                .SelectMany(x => x.Fixtures)
+                .Where(x => x.FullName.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >= 0 ||
+                            x.Description.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >= 0);
+
+            _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
+            GUILayout.BeginVertical(EditorStyles.helpBox);
+            foreach (var sketchFixture in filteredSketches)
+                DrawSketchRunnerGUIItem(sketchFixture);
+            GUILayout.EndVertical();
+            GUILayout.EndScrollView();
         }
 
         private void DrawSketchAssemblies()
