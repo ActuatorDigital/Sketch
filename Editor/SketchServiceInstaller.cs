@@ -10,9 +10,12 @@ namespace AIR.Sketch
     [RequireComponent(typeof(FlumeServiceContainer))]
     public class SketchServiceInstaller : MonoBehaviour
     {
-        void Awake() => gameObject
+
+        private void Awake() => gameObject
             .GetComponent<FlumeServiceContainer>()
             .OnContainerReady += InstallServices;
+
+        private void OnDestroy() => SketchRunner.SketchFinished();
 
         private void InstallServices(FlumeServiceContainer container)
         {
