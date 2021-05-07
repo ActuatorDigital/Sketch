@@ -14,7 +14,7 @@ namespace AIR.Sketch
         private Texture2D _pinnedIcon = null;
 
         private const int BUTTON_WIDTH = 25;
-        private const string RUNNING_SKETCH_NAME = "RUNNING_SKETCH_NAME";
+        public const string RUNNING_SKETCH_NAME = "RUNNING_SKETCH_NAME";
 
         private List<SketchAssembly> _sketches = new List<SketchAssembly>();
         private Vector2 _scrollPosition = Vector2.zero;
@@ -41,18 +41,15 @@ namespace AIR.Sketch
                 if (cancel)
                     EditorApplication.ExitPlaymode();
             } else {
-                // _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
                 OnDrawSketchesFixtures();
-                // GUILayout.EndScrollView();
             }
         }
 
         private void OnInspectorUpdate()
         {
             if (_selectedSketch != null) {
-                // TODO: Resolve and inject dependencies.
-                SketchRunner.RunSketch(_selectedSketch);
                 EditorPrefs.SetString(RUNNING_SKETCH_NAME, _selectedSketch.Name);
+                SketchRunner.RunSketch(_selectedSketch);
                 _selectedSketch = null;
             }
         }
