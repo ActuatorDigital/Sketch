@@ -132,6 +132,9 @@ namespace AIR.Sketch
 
         private void DrawSketchAssembly(SketchAssembly sketchAssembly)
         {
+            if (!sketchAssembly.Fixtures.Any())
+                return;
+
             HorizontalLine();
 
             Heading(sketchAssembly.AssemblyName);
