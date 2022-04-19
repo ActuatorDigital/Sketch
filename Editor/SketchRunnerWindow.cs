@@ -88,8 +88,8 @@ namespace AIR.Sketch
 
             var filteredSketches = _sketches
                 .SelectMany(x => x.Fixtures)
-                .Where(x => x.FullName.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >= 0 ||
-                            x.Description.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >= 0);
+                .Where(x => x.FullName?.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >= 0 ||
+                            x.Description?.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >= 0);
 
             _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
             GUILayout.BeginVertical(EditorStyles.helpBox);
