@@ -16,7 +16,7 @@ namespace AIR.Sketch
         private const int BUTTON_WIDTH = 25;
         public const string RUNNING_SKETCH_NAME = "RUNNING_SKETCH_NAME";
 
-        private List<SketchAssembly> _sketches = new List<SketchAssembly>();
+        private readonly List<SketchAssembly> _sketches = new List<SketchAssembly>();
         private Vector2 _scrollPosition = Vector2.zero;
         private Type _selectedSketch;
         private string _searchString;
@@ -132,6 +132,9 @@ namespace AIR.Sketch
 
         private void DrawSketchAssembly(SketchAssembly sketchAssembly)
         {
+            if (!sketchAssembly.Fixtures.Any())
+                return;
+
             HorizontalLine();
 
             Heading(sketchAssembly.AssemblyName);
@@ -160,7 +163,7 @@ namespace AIR.Sketch
             GUILayout.BeginHorizontal();
 
             var nameGUISkin = EditorStyles.boldLabel;
-            var nameGUICon = new GUIContent(sketchFixture.FullName);
+            var nameGUICon = new GUIContent(sketchFixture.ShortName);
 
             var descGUISkin = EditorStyles.miniLabel;
             var descGUICon = new GUIContent(sketchFixture.Description);
@@ -246,8 +249,13 @@ namespace AIR.Sketch
                         .GetCustomAttribute(type, typeof(SketchDescriptionAttribute));
                     var description = descriptionAttribute?.Description;
 
-                    var name = type.FullName;
-                    var sketchFixture = new SketchFixture(name, type, description);
+                    var sketchFixture = new SketchFixture()
+                    {
+                        ShortName = type.Name,
+                        FullName = type.FullName,
+                        TypeInfo = type,
+                        Description = description,
+                    };
                     fixtures.Add(sketchFixture);
                 }
 
@@ -267,18 +275,12 @@ namespace AIR.Sketch
             public SketchFixture[] Fixtures { get; }
         }
 
-        private readonly struct SketchFixture
+        private struct SketchFixture
         {
-            public SketchFixture(string fullName, Type type, string description)
-            {
-                FullName = fullName;
-                TypeInfo = type;
-                Description = description;
-            }
-
-            public string FullName { get; }
-            public Type TypeInfo { get; }
-            public string Description { get; }
+            public string ShortName;
+            public string FullName;
+            public Type TypeInfo;
+            public string Description;
         }
     }
 }
