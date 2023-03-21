@@ -1,7 +1,9 @@
 {
-    "name": "AIR.Sketch",
+    "name": "AIR.Sketch.Editor",
+    "rootNamespace": "",
     "references": [
-        "AIR.Flume"
+        "AIR.Flume",
+        "AIR.Sketch.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [
