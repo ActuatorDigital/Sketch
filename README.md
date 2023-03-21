@@ -12,10 +12,10 @@ For the Unity Editor to recognise sketches, they must satisfy two requirements:
 2. The sketch class must have the `[SketchFixture]` attribute.
 
 ### Adding Descriptions
-It is recommeneded that when creating a new sketch, you use the `[SketchDescription]` attribute on the class. Doing so provides developers more information about what the sketch is expected to demonstrate, and the text appears along with the test in in the sketch runner.
+It is recommended that when creating a new sketch, you use the `[SketchDescription]` attribute on the class. Doing so provides developers more information about what the sketch is expected to demonstrate, and the text appears along with the test in in the sketch runner.
 
 ### Dependencies
-The Sketch runner is coupled with [AIR.Flume](https://github.com/AnImaginedReality/Flume), which can provide sketches with dependency injection. If your sketch has a Dependency, add the `[SketchDependsOn(Type serviceType, Type serviceImplementation)]` attribute. By adding this attribute along with the given dependency type and implementation type, AIR.Sketch will create the necissary dependencies for your sketch to run. Note that dependencies don't have to be a sketch's direct dependency. A dependency will be injected for **any** object instantiated in the sketch.
+The Sketch runner is coupled with [AIR.Flume](https://github.com/AnImaginedReality/Flume), which can provide sketches with dependency injection. If your sketch has a Dependency, add the `[SketchDependsOn(Type serviceType, Type serviceImplementation)]` attribute. By adding this attribute along with the given dependency type and implementation type, AIR.Sketch will create the necessary dependencies for your sketch to run. Note that dependencies don't have to be a sketch's direct dependency. A dependency will be injected for **any** object instantiated in the sketch.
 
 ## Sketch Runner
 The sketch runner window can be found in the Unity Editor Window dropdown beside the test runner. To open the sketch runner, in the unity editor, navigate to:
@@ -23,9 +23,3 @@ The sketch runner window can be found in the Unity Editor Window dropdown beside
 Window > General > Sketch Runner
 ```
 The sketch runner window will now appear, and list any/all valid sketches in your project, along with  names, descriptions, and run buttons for each. Feel free to dock it anywhere in your workspace.
-
-<!-- 
-TODO: Make editor tools for quickly making sketch assemblies.
-TODO: Make shortcut (ctrl + shift + r) to re-run last sketch.
-Sketch assemblies (unlike tests) may use many libraries in order to demonstrate their functions, and for this reason may have many assembly references.
--->
