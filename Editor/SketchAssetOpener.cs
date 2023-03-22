@@ -9,7 +9,8 @@ namespace AIR.Sketch
 
         public static void OpenSketch(Type sketchFixture)
         {
-            foreach (var asset in AssetDatabase.GetAllAssetPaths()) {
+            foreach (var asset in AssetDatabase.GetAllAssetPaths())
+            {
                 if (!asset.EndsWith(sketchFixture.Name + CSHARP_EXT)) continue;
 
                 var csharpAsset = (MonoScript)AssetDatabase.LoadAssetAtPath(asset, typeof(MonoScript));

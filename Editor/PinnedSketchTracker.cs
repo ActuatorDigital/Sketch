@@ -1,5 +1,3 @@
-// Copyright (c) AIR Pty Ltd. All rights reserved.
-
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;

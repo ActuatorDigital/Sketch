@@ -22,7 +22,7 @@ namespace AIR.Sketch
                 var runningSketch = EditorPrefs.GetBool(RUNNING_SKETCH_KEY);
                 if (!runningSketch)
                     return;
-                
+
                 if (change == PlayModeStateChange.EnteredEditMode)
                 {
                     EditorPrefs.SetBool(RUNNING_SKETCH_KEY, false);
@@ -35,7 +35,7 @@ namespace AIR.Sketch
                     EditorPrefs.SetString(SCENE_BEFORE_SKETCH_KEY, string.Empty);
                     EditorPrefs.SetString(SketchRunnerWindow.RUNNING_SKETCH_NAME, string.Empty);
                 }
-                else if(change == PlayModeStateChange.EnteredPlayMode)
+                else if (change == PlayModeStateChange.EnteredPlayMode)
                 {
                     var fullTypeName = EditorPrefs.GetString(SKETCH_FULL_TYPE_NAME_KEY);
                     var asmName = EditorPrefs.GetString(SKETCH_ASSEMBLY_NAME_KEY);
