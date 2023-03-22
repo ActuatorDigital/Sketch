@@ -7,9 +7,18 @@ AIR's sketch framework allows you to build and interactively run small code snip
 ## Creating Sketches
 
 ### Prerequisites
-For the Unity Editor to recognise sketches, they must satisfy two requirements:
+For the Unity Editor to recognise and run sketches, they must:
 1. The sketch class must exists inside of an assembly with a name ending in ".Sketches". eg `Example.Sketches.asmdef`.
 2. The sketch class must have the `[SketchFixture]` attribute.
+3. Inherit from MonoBehaviour or ScriptableObject.
+
+### Running
+
+SketchRunner puts the game into playmode in an empty scene with the Sketch in it. If you have inherited from MonoBehaviour, this acts as normal. If you have inherited from ScriptableObject, SketchFixtureRunner will attempt to invoke a number of default Unity Messages. Such as `Start`, `Update`, `OnGUI`, `OnDrawGizmos`, `OnDestroy`, and more.
+
+### Data
+
+Sketches inherit from UnityEngine.Object so that you can assign default editor values in the MonoScript asset importer.
 
 ### Adding Descriptions
 It is recommended that when creating a new sketch, you use the `[SketchDescription]` attribute on the class. Doing so provides developers more information about what the sketch is expected to demonstrate, and the text appears along with the test in in the sketch runner.
