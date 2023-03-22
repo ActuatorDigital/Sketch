@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Runtime asm, containing all attributes.
+- Sketches can now inherit from ScriptableObject.
 
 ### Changed
 
@@ -18,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Error when a sketch search resulted in no results.
+- SketchRunner correctly returns to the previous scene when stopping.
 
 ## [0.0.1]
 

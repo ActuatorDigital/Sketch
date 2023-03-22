@@ -15,8 +15,6 @@ namespace AIR.Sketch
             .GetComponent<FlumeServiceContainer>()
             .OnContainerReady += InstallServices;
 
-        private void OnDestroy() => SketchRunner.SketchFinished();
-
         private void InstallServices(FlumeServiceContainer container)
         {
             var dependencies = ResolveDependencies();
