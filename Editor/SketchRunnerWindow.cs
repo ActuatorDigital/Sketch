@@ -187,11 +187,16 @@ namespace AIR.Sketch
             if (runSketch)
                 _selectedSketch = sketchFixture.TypeInfo;
 
-            var openButtonWidth = GUILayout.Width(textHeight);
+            var buttonWidth = GUILayout.Width(textHeight);
             var editIconContent = new GUIContent(_editIcon);
-            var openCode = GUILayout.Button(editIconContent, buttonHeight, openButtonWidth);
+            var openCode = GUILayout.Button(editIconContent, buttonHeight, buttonWidth);
             if (openCode)
-                SketchAssetOpener.OpenSketch(sketchFixture.TypeInfo);
+                AssetDatabase.OpenAsset(sketchFixture.Asset);
+
+            var scriptIconContent = new GUIContent(EditorGUIUtility.IconContent("cs Script Icon").image);
+            var selectAsset = GUILayout.Button(scriptIconContent, buttonHeight, buttonWidth);
+            if (selectAsset)
+                Selection.activeObject = sketchFixture.Asset;
 
             GUILayout.BeginVertical();
 
@@ -204,14 +209,14 @@ namespace AIR.Sketch
             if (PinnedSketchTracker.IsPinned(sketchFixture.FullName))
             {
                 var unpinnedIconContent = new GUIContent(_pinnedIcon);
-                var unpinClicked = GUILayout.Button(unpinnedIconContent, pinButtonSkin, buttonHeight, openButtonWidth);
+                var unpinClicked = GUILayout.Button(unpinnedIconContent, pinButtonSkin, buttonHeight, buttonWidth);
                 if (unpinClicked)
                     PinnedSketchTracker.UnpinSketch(sketchFixture.FullName);
             }
             else
             {
                 var pinnedIconContent = new GUIContent(_unpinnedIcon);
-                var pinClicked = GUILayout.Button(pinnedIconContent, pinButtonSkin, buttonHeight, openButtonWidth);
+                var pinClicked = GUILayout.Button(pinnedIconContent, pinButtonSkin, buttonHeight, buttonWidth);
                 if (pinClicked)
                     PinnedSketchTracker.PinSketch(sketchFixture.FullName);
             }
@@ -245,6 +250,7 @@ namespace AIR.Sketch
         private void RefreshSketchList()
         {
             _sketches.Clear();
+            var locator = new SketchAssetLocator();
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 var assemblyName = assembly.GetName().Name;
@@ -267,6 +273,7 @@ namespace AIR.Sketch
                         FullName = type.FullName,
                         TypeInfo = type,
                         Description = description,
+                        Asset = locator.FindAssetForType(type),
                     };
                     fixtures.Add(sketchFixture);
                 }
@@ -293,6 +300,7 @@ namespace AIR.Sketch
             public string FullName;
             public Type TypeInfo;
             public string Description;
+            public MonoScript Asset;
         }
     }
 }
