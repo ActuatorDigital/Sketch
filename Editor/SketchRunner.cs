@@ -43,7 +43,9 @@ namespace AIR.Sketch
                     var asm = assemblies.First(a => a.FullName == asmName);
                     var sketchType = asm.GetType(fullTypeName);
                     var sketchGo = new GameObject(sketchType.Name);
+#if USE_FLUME
                     sketchGo.AddComponent<SketchServiceInstaller>();
+#endif
                     var fixtureRunner = sketchGo.AddComponent<SketchFixtureRunner>();
                     fixtureRunner.RunSketchFixture(sketchType);
                 }
