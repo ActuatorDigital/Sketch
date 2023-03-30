@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Sketch window now uses Name, not FullyQualifiedName.
+- Flume is now an optional dependency; adding additional function, but not required.
 
 ### Fixed
 

@@ -1,8 +1,10 @@
-# AIR.Sketch
+# Sketch
 A Sketch Framework for the Unity Editor.
 
 ## Description
-AIR's sketch framework allows you to build and interactively run small code snippets (called "Sketches") in isolation, without needing to build them into a game or scene. Often, the best way to build new features are in isolation, and this framework facilitates that. Features built as sketches can be easily found, demonstrated and worked on, and much like tests, these sketches can then also serve as reference for certain feature working in isolation.
+Actuators's sketch framework allows you to build and interactively run small code snippets (called "Sketches") in isolation, without needing to build them into a game or scene.
+
+Often, the best way to build new features are in isolation, and this framework facilitates that. Features built as sketches can be easily found, demonstrated and worked on, and much like tests, these sketches can then also serve as reference for certain features working in isolation.
 
 ## Creating Sketches
 
@@ -23,8 +25,15 @@ Sketches inherit from UnityEngine.Object so that you can assign default editor v
 ### Adding Descriptions
 It is recommended that when creating a new sketch, you use the `[SketchDescription]` attribute on the class. Doing so provides developers more information about what the sketch is expected to demonstrate, and the text appears along with the test in in the sketch runner.
 
-### Dependencies
-The Sketch runner is coupled with [AIR.Flume](https://github.com/AnImaginedReality/Flume), which can provide sketches with dependency injection. If your sketch has a Dependency, add the `[SketchDependsOn(Type serviceType, Type serviceImplementation)]` attribute. By adding this attribute along with the given dependency type and implementation type, AIR.Sketch will create the necessary dependencies for your sketch to run. Note that dependencies don't have to be a sketch's direct dependency. A dependency will be injected for **any** object instantiated in the sketch.
+## Integrations
+
+### Flume
+
+The Sketch runner has additional functionality if included in a project also using [Flume](https://github.com/ActuatorDigital/Flume), which can provide sketches with dependency injection.
+
+If your sketch has a Dependency, add the `[SketchDependsOn(Type serviceType, Type serviceImplementation)]` attribute.
+
+By adding this attribute along with the given dependency type and implementation type, Sketch will create the necessary dependencies for your sketch to run. Note that dependencies don't have to be a sketch's direct dependency. A dependency will be injected for **any** object instantiated in the sketch.
 
 ## Sketch Runner
 The sketch runner window can be found in the Unity Editor Window dropdown beside the test runner. To open the sketch runner, in the unity editor, navigate to:
