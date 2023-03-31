@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Runtime asm, containing all attributes.
 - Sketches can now inherit from ScriptableObject.
 - Button to select the Sketch asset.
+- Sample - Set-up sketch assembly definition with empty sketch included.
+- Sample - Simple examples of Sketch usage.
 
 ### Changed
 

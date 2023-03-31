@@ -1,4 +1,7 @@
 # Sketch
+
+<img src="https://img.shields.io/badge/unity-2021.3-green.svg?style=flat-square" alt="unity 2021.3">
+
 A Sketch Framework for the Unity Editor.
 
 ## Description
@@ -41,3 +44,7 @@ The sketch runner window can be found in the Unity Editor Window dropdown beside
 Window > General > Sketch Runner
 ```
 The sketch runner window will now appear, and list any/all valid sketches in your project, along with  names, descriptions, and run buttons for each. Feel free to dock it anywhere in your workspace.
+
+## Samples
+
+The Sketch package comes with two samples: `Empty` which contains a set up assembly definition file with a set up empty sketch, for adding into your project, and `Examples` which contains some simple examples of Sketch usage.
