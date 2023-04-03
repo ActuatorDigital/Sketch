@@ -26,6 +26,7 @@ public class ScriptableObjectInvokeSketch : ScriptableObject
 
     public void OnDestroy()
     {
-        Destroy(_transform.gameObject);
+        if (_transform != null)
+            Destroy(_transform.gameObject);
     }
 }
