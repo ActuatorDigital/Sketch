@@ -3,5 +3,17 @@
   "displayName": "Sketch Framework",
   "version": "0.0.1",
   "description": "A Sketch Framework for the Unity Editor.",
-  "type": "library"
+  "type": "library",
+  "samples": [
+    {
+      "displayName": "Empty",
+      "description": "An empty sketch that can be used as a starting point.",
+      "path": "Samples~/Empty"
+    },
+    {
+      "displayName": "Examples",
+      "description": "Some example usages of Sketch with comments.",
+      "path": "Samples~/Examples"
+    }
+  ]
 }
