@@ -16,7 +16,7 @@ namespace AIR.Sketch
         private const int BUTTON_WIDTH = 25;
         public const string RUNNING_SKETCH_NAME = "RUNNING_SKETCH_NAME";
 
-        private List<SketchAssembly> _sketches = new List<SketchAssembly>();
+        private readonly List<SketchAssembly> _sketches = new List<SketchAssembly>();
         private Vector2 _scrollPosition = Vector2.zero;
         private Type _selectedSketch;
         private string _searchString;
@@ -32,7 +32,8 @@ namespace AIR.Sketch
 
         private void OnGUI()
         {
-            if (Application.isPlaying) {
+            if (Application.isPlaying)
+            {
                 var sketchName = EditorPrefs.GetString(RUNNING_SKETCH_NAME);
                 var cancel = GUILayout.Button(
                     "Stop " + sketchName,
@@ -40,14 +41,17 @@ namespace AIR.Sketch
                     GUILayout.ExpandHeight(true));
                 if (cancel)
                     EditorApplication.ExitPlaymode();
-            } else {
+            }
+            else
+            {
                 OnDrawSketchesFixtures();
             }
         }
 
         private void OnInspectorUpdate()
         {
-            if (_selectedSketch != null) {
+            if (_selectedSketch != null)
+            {
                 EditorPrefs.SetString(RUNNING_SKETCH_NAME, _selectedSketch.Name);
                 SketchRunner.RunSketch(_selectedSketch);
                 _selectedSketch = null;
@@ -88,8 +92,8 @@ namespace AIR.Sketch
 
             var filteredSketches = _sketches
                 .SelectMany(x => x.Fixtures)
-                .Where(x => x.FullName.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >= 0 ||
-                            x.Description.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >= 0);
+                .Where(x => x.FullName?.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >= 0 ||
+                            x.Description?.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >= 0);
 
             _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
             GUILayout.BeginVertical(EditorStyles.helpBox);
@@ -119,9 +123,12 @@ namespace AIR.Sketch
                 PinnedSketchTracker.ClearPinned();
             GUILayout.EndHorizontal();
             HorizontalLine();
-            foreach (var sketchAssembly in _sketches) {
-                foreach (var sketchFixure in sketchAssembly.Fixtures) {
-                    if (PinnedSketchTracker.IsPinned(sketchFixure.FullName)) {
+            foreach (var sketchAssembly in _sketches)
+            {
+                foreach (var sketchFixure in sketchAssembly.Fixtures)
+                {
+                    if (PinnedSketchTracker.IsPinned(sketchFixure.FullName))
+                    {
                         DrawSketchRunnerGUIItem(sketchFixure);
                     }
                 }
@@ -132,6 +139,9 @@ namespace AIR.Sketch
 
         private void DrawSketchAssembly(SketchAssembly sketchAssembly)
         {
+            if (!sketchAssembly.Fixtures.Any())
+                return;
+
             HorizontalLine();
 
             Heading(sketchAssembly.AssemblyName);
@@ -160,7 +170,7 @@ namespace AIR.Sketch
             GUILayout.BeginHorizontal();
 
             var nameGUISkin = EditorStyles.boldLabel;
-            var nameGUICon = new GUIContent(sketchFixture.FullName);
+            var nameGUICon = new GUIContent(sketchFixture.ShortName);
 
             var descGUISkin = EditorStyles.miniLabel;
             var descGUICon = new GUIContent(sketchFixture.Description);
@@ -177,11 +187,16 @@ namespace AIR.Sketch
             if (runSketch)
                 _selectedSketch = sketchFixture.TypeInfo;
 
-            var openButtonWidth = GUILayout.Width(textHeight);
+            var buttonWidth = GUILayout.Width(textHeight);
             var editIconContent = new GUIContent(_editIcon);
-            var openCode = GUILayout.Button(editIconContent, buttonHeight, openButtonWidth);
+            var openCode = GUILayout.Button(editIconContent, buttonHeight, buttonWidth);
             if (openCode)
-                SketchAssetOpener.OpenSketch(sketchFixture.TypeInfo);
+                AssetDatabase.OpenAsset(sketchFixture.Asset);
+
+            var scriptIconContent = new GUIContent(EditorGUIUtility.IconContent("cs Script Icon").image);
+            var selectAsset = GUILayout.Button(scriptIconContent, buttonHeight, buttonWidth);
+            if (selectAsset)
+                Selection.activeObject = sketchFixture.Asset;
 
             GUILayout.BeginVertical();
 
@@ -191,14 +206,17 @@ namespace AIR.Sketch
             GUILayout.EndVertical();
 
             var pinButtonSkin = new GUIStyle(GUI.skin.label);
-            if (PinnedSketchTracker.IsPinned(sketchFixture.FullName)) {
+            if (PinnedSketchTracker.IsPinned(sketchFixture.FullName))
+            {
                 var unpinnedIconContent = new GUIContent(_pinnedIcon);
-                var unpinClicked = GUILayout.Button(unpinnedIconContent, pinButtonSkin, buttonHeight, openButtonWidth);
+                var unpinClicked = GUILayout.Button(unpinnedIconContent, pinButtonSkin, buttonHeight, buttonWidth);
                 if (unpinClicked)
                     PinnedSketchTracker.UnpinSketch(sketchFixture.FullName);
-            } else {
+            }
+            else
+            {
                 var pinnedIconContent = new GUIContent(_unpinnedIcon);
-                var pinClicked = GUILayout.Button(pinnedIconContent, pinButtonSkin, buttonHeight, openButtonWidth);
+                var pinClicked = GUILayout.Button(pinnedIconContent, pinButtonSkin, buttonHeight, buttonWidth);
                 if (pinClicked)
                     PinnedSketchTracker.PinSketch(sketchFixture.FullName);
             }
@@ -209,16 +227,16 @@ namespace AIR.Sketch
         private void Awake()
         {
             var playIconPath = "Packages/com.air.sketch/Editor/PlayIcon.png";
-            _playIcon = (Texture2D) AssetDatabase.LoadAssetAtPath(playIconPath, typeof(Texture2D));
+            _playIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(playIconPath, typeof(Texture2D));
 
             var editIconPath = "Packages/com.air.sketch/Editor/EditIcon.png";
-            _editIcon = (Texture2D) AssetDatabase.LoadAssetAtPath(editIconPath, typeof(Texture2D));
+            _editIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(editIconPath, typeof(Texture2D));
 
             var unpinnedIconPath = "Packages/com.air.sketch/Editor/UnpinnedIcon.png";
-            _unpinnedIcon = (Texture2D) AssetDatabase.LoadAssetAtPath(unpinnedIconPath, typeof(Texture2D));
+            _unpinnedIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(unpinnedIconPath, typeof(Texture2D));
 
             var pinnedIconPath = "Packages/com.air.sketch/Editor/PinnedIcon.png";
-            _pinnedIcon = (Texture2D) AssetDatabase.LoadAssetAtPath(pinnedIconPath, typeof(Texture2D));
+            _pinnedIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(pinnedIconPath, typeof(Texture2D));
 
             RefreshSketchList();
         }
@@ -232,22 +250,31 @@ namespace AIR.Sketch
         private void RefreshSketchList()
         {
             _sketches.Clear();
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+            var locator = new SketchAssetLocator();
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
                 var assemblyName = assembly.GetName().Name;
                 if (!assemblyName.EndsWith(".Sketches")) continue;
                 var fixtures = new List<SketchFixture>();
-                foreach (var type in assembly.GetTypes()) {
+                foreach (var type in assembly.GetTypes())
+                {
                     if (type.IsAbstract) continue;
-                    var sketchFixtureAttribute = (SketchFixtureAttribute) Attribute
+                    var sketchFixtureAttribute = (SketchFixtureAttribute)Attribute
                         .GetCustomAttribute(type, typeof(SketchFixtureAttribute));
                     if (sketchFixtureAttribute == null) continue;
 
-                    var descriptionAttribute = (SketchDescriptionAttribute) Attribute
+                    var descriptionAttribute = (SketchDescriptionAttribute)Attribute
                         .GetCustomAttribute(type, typeof(SketchDescriptionAttribute));
                     var description = descriptionAttribute?.Description;
 
-                    var name = type.FullName;
-                    var sketchFixture = new SketchFixture(name, type, description);
+                    var sketchFixture = new SketchFixture()
+                    {
+                        ShortName = type.Name,
+                        FullName = type.FullName,
+                        TypeInfo = type,
+                        Description = description,
+                        Asset = locator.FindAssetForType(type),
+                    };
                     fixtures.Add(sketchFixture);
                 }
 
@@ -267,18 +294,13 @@ namespace AIR.Sketch
             public SketchFixture[] Fixtures { get; }
         }
 
-        private readonly struct SketchFixture
+        private struct SketchFixture
         {
-            public SketchFixture(string fullName, Type type, string description)
-            {
-                FullName = fullName;
-                TypeInfo = type;
-                Description = description;
-            }
-
-            public string FullName { get; }
-            public Type TypeInfo { get; }
-            public string Description { get; }
+            public string ShortName;
+            public string FullName;
+            public Type TypeInfo;
+            public string Description;
+            public MonoScript Asset;
         }
     }
 }

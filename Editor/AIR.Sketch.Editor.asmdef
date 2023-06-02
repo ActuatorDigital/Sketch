@@ -1,6 +1,8 @@
 {
-    "name": "AIR.Sketch",
+    "name": "AIR.Sketch.Editor",
+    "rootNamespace": "",
     "references": [
+        "AIR.Sketch.Runtime",
         "AIR.Flume"
     ],
     "includePlatforms": [],
@@ -25,6 +27,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.air.flume",
+            "expression": "0.0.1",
+            "define": "USE_FLUME"
+        }
+    ],
     "noEngineReferences": false
 }
