@@ -1,7 +1,7 @@
 {
   "name": "com.actuator.sketch",
   "displayName": "Sketch Framework",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Sketch Framework for the Unity Editor.",
   "author": "Actuator Digital",
   "type": "library",

@@ -14,10 +14,9 @@ As of version 0.1.0, we've made a significant update to our framework - the top-
 
 ### Prerequisites
 For the Unity Editor to recognise and run sketches, they must:
-1. The sketch class must exists inside of an assembly with a name ending in ".Sketches". eg `Example.Sketches.asmdef`.
-2. The sketch class must have the `[SketchFixture]` attribute.
-3. Inherit from MonoBehaviour or ScriptableObject.
-4. **(New in version 0.1.0)** The sketch class should be in the updated top-level namespace.
+1. The sketch class must have the `[SketchFixture]` attribute.
+2. Inherit from MonoBehaviour or ScriptableObject.
+3. **(Updated in version 0.1.0)** While it was previously required that the sketch class exists inside of an assembly with a name ending in ".Sketches", this requirement has been removed to accommodate less structured projects. However, maintaining a clear structure in your project is still recommended when possible.
 
 ### Running
 

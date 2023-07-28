@@ -251,10 +251,8 @@ namespace Actuator.Sketch
         {
             _sketches.Clear();
             var locator = new SketchAssetLocator();
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                var assemblyName = assembly.GetName().Name;
-                if (!assemblyName.EndsWith(".Sketches")) continue;
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+
                 var fixtures = new List<SketchFixture>();
                 foreach (var type in assembly.GetTypes())
                 {
@@ -278,7 +276,8 @@ namespace Actuator.Sketch
                     fixtures.Add(sketchFixture);
                 }
 
-                _sketches.Add(new SketchAssembly(assembly.GetName().Name, fixtures.ToArray()));
+                if(fixtures.Any())
+                    _sketches.Add(new SketchAssembly(assembly.GetName().Name, fixtures.ToArray()));
             }
         }
 
