@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ## [0.1.0]
 
+### Added
+- Introduced `SketchDependsOverrideAttribute`, allowing for more specific dependency injection for subclasses of sketches. This provides greater flexibility when extending abstract sketches.
+
 ### Changed
 
 - Changed the top level namespace (This is a breaking change). Please update your imports accordingly.

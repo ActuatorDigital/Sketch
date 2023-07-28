@@ -40,6 +40,12 @@ If your sketch has a Dependency, add the `[SketchDependsOn(Type serviceType, Typ
 
 By adding this attribute along with the given dependency type and implementation type, Sketch will create the necessary dependencies for your sketch to run. Note that dependencies don't have to be a sketch's direct dependency. A dependency will be injected for **any** object instantiated in the sketch.
 
+#### Overriding Dependencies
+
+From version 0.1.0 onwards, users can add more specific dependency injection for subclasses of sketches, providing greater flexibility when extending abstract sketches. This is done using the new `SketchDependsOverrideAttribute`.
+
+This feature might be particularly useful if you're using Flume with many sketches with shared behaviour, where varied behaviour from inherited or abstract sketches is desired.
+
 ## Sketch Runner
 The sketch runner window can be found in the Unity Editor Window dropdown beside the test runner. To open the sketch runner, in the unity editor, navigate to:
 ```
