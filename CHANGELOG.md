@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Changed the top level namespace (This is a breaking change). Please update your imports accordingly.
+- Added a logo to the README file for improved project branding. 
 
 ## [0.0.2]
 

@@ -1,9 +1,13 @@
 {
   "name": "com.actuator.sketch",
   "displayName": "Sketch Framework",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A Sketch Framework for the Unity Editor.",
+  "author": "Actuator Digital",
   "type": "library",
+  "dependencies": {
+    "com.air.flume": "0.0.4"
+  },
   "samples": [
     {
       "displayName": "Empty",
