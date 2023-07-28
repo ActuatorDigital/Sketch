@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AIR.Sketch
+namespace Actuator.Sketch
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class SketchDependsOnAttribute : Attribute

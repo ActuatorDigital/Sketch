@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace AIR.Sketch
+namespace Actuator.Sketch
 {
     public class SketchFixtureRunner : MonoBehaviour
     {

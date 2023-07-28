@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Linq;
 
-namespace AIR.Sketch
+namespace Actuator.Sketch
 {
     public class SketchRunnerWindow : EditorWindow
     {
@@ -226,16 +226,16 @@ namespace AIR.Sketch
 
         private void Awake()
         {
-            var playIconPath = "Packages/com.air.sketch/Editor/PlayIcon.png";
+            var playIconPath = "Packages/com.Actuator.Sketch/Editor/PlayIcon.png";
             _playIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(playIconPath, typeof(Texture2D));
 
-            var editIconPath = "Packages/com.air.sketch/Editor/EditIcon.png";
+            var editIconPath = "Packages/com.Actuator.Sketch/Editor/EditIcon.png";
             _editIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(editIconPath, typeof(Texture2D));
 
-            var unpinnedIconPath = "Packages/com.air.sketch/Editor/UnpinnedIcon.png";
+            var unpinnedIconPath = "Packages/com.Actuator.Sketch/Editor/UnpinnedIcon.png";
             _unpinnedIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(unpinnedIconPath, typeof(Texture2D));
 
-            var pinnedIconPath = "Packages/com.air.sketch/Editor/PinnedIcon.png";
+            var pinnedIconPath = "Packages/com.Actuator.Sketch/Editor/PinnedIcon.png";
             _pinnedIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(pinnedIconPath, typeof(Texture2D));
 
             RefreshSketchList();

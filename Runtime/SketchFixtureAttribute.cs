@@ -1,6 +1,6 @@
 using System;
 
-namespace AIR.Sketch
+namespace Actuator.Sketch
 {
     public class SketchFixtureAttribute : Attribute { }
 }

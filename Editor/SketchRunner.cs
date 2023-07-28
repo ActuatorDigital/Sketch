@@ -5,7 +5,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace AIR.Sketch
+namespace Actuator.Sketch
 {
     [InitializeOnLoad]
     public class SketchRunner

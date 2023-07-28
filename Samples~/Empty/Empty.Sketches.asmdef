@@ -2,8 +2,8 @@
     "name": "Empty.Sketches",
     "rootNamespace": "",
     "references": [
-        "AIR.Sketch.Editor",
-        "AIR.Sketch.Runtime",
+        "Actuator.Sketch.Editor",
+        "Actuator.Sketch.Runtime",
         "UnityEditor.UI",
         "UnityEngine.UI"
     ],

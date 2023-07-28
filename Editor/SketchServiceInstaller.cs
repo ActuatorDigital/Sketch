@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using AIR.Flume;
+using Actuator.Flume;
 using UnityEngine;
 
-namespace AIR.Sketch
+namespace Actuator.Sketch
 {
     [RequireComponent(typeof(FlumeServiceContainer))]
     public class SketchServiceInstaller : MonoBehaviour
