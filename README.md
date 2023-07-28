@@ -1,5 +1,4 @@
-# Sketch
-
+<img src="Logo.png" alt="Sketch Logo">
 <img src="https://img.shields.io/badge/unity-2021.3-green.svg?style=flat-square" alt="unity 2021.3">
 
 A Sketch Framework for the Unity Editor.

@@ -226,16 +226,16 @@ namespace Actuator.Sketch
 
         private void Awake()
         {
-            var playIconPath = "Packages/com.Actuator.Sketch/Editor/PlayIcon.png";
+            var playIconPath = "Packages/com.actuator.sketch/Editor/PlayIcon.png";
             _playIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(playIconPath, typeof(Texture2D));
 
-            var editIconPath = "Packages/com.Actuator.Sketch/Editor/EditIcon.png";
+            var editIconPath = "Packages/com.actuator.sketch/Editor/EditIcon.png";
             _editIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(editIconPath, typeof(Texture2D));
 
-            var unpinnedIconPath = "Packages/com.Actuator.Sketch/Editor/UnpinnedIcon.png";
+            var unpinnedIconPath = "Packages/com.actuator.sketch/Editor/UnpinnedIcon.png";
             _unpinnedIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(unpinnedIconPath, typeof(Texture2D));
 
-            var pinnedIconPath = "Packages/com.Actuator.Sketch/Editor/PinnedIcon.png";
+            var pinnedIconPath = "Packages/com.actuator.sketch/Editor/PinnedIcon.png";
             _pinnedIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(pinnedIconPath, typeof(Texture2D));
 
             RefreshSketchList();
