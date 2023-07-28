@@ -1,8 +1,8 @@
 {
-    "name": "AIR.Sketch.Editor",
+    "name": "Actuator.Sketch.Editor",
     "rootNamespace": "",
     "references": [
-        "AIR.Sketch.Runtime",
+        "Actuator.Sketch.Runtime",
         "AIR.Flume"
     ],
     "includePlatforms": [],

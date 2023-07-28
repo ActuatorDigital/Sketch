@@ -9,6 +9,8 @@ Actuators's sketch framework allows you to build and interactively run small cod
 
 Often, the best way to build new features are in isolation, and this framework facilitates that. Features built as sketches can be easily found, demonstrated and worked on, and much like tests, these sketches can then also serve as reference for certain features working in isolation.
 
+As of version 0.1.0, we've made a significant update to our framework - the top-level namespace has changed. This is a breaking change, and you will need to update your imports accordingly.
+
 ## Creating Sketches
 
 ### Prerequisites
@@ -16,6 +18,7 @@ For the Unity Editor to recognise and run sketches, they must:
 1. The sketch class must exists inside of an assembly with a name ending in ".Sketches". eg `Example.Sketches.asmdef`.
 2. The sketch class must have the `[SketchFixture]` attribute.
 3. Inherit from MonoBehaviour or ScriptableObject.
+4. **(New in version 0.1.0)** The sketch class should be in the updated top-level namespace.
 
 ### Running
 

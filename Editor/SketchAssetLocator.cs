@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 
-namespace AIR.Sketch
+namespace Actuator.Sketch
 {
     public sealed class SketchAssetLocator
     {
