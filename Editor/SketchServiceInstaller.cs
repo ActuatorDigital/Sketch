@@ -69,13 +69,27 @@ namespace Actuator.Sketch
             var components = GetComponents<MonoBehaviour>();
             foreach (var component in components)
             {
-                var dependsOnAttributes = (SketchDependsOnAttribute[])component.GetType()
-                    .GetCustomAttributes(typeof(SketchDependsOnAttribute), true);
+                var dependsOnAttributes = component.GetType()
+                    .GetCustomAttributes(typeof(SketchDependsOnAttribute), true)
+                    .Cast<SketchDependsOnAttribute>()
+                    .ToList();
+
+                var sketchDependencyOverrideAttributes = (SketchDependsOverrideAttribute[]) component.GetType()
+                    .GetCustomAttributes(typeof(SketchDependsOverrideAttribute), true);
+                foreach (var dependencyOverride in sketchDependencyOverrideAttributes)
+                {
+                    dependsOnAttributes.Remove(dependencyOverride);
+                    var dependsOnToOverride = dependsOnAttributes
+                        .FirstOrDefault(d => d.ServiceType == dependencyOverride.ServiceType);
+                    dependsOnAttributes.Remove(dependsOnToOverride);
+                    dependsOnAttributes.Add(dependencyOverride);
+                }
 
                 var sketchHasDependency = dependsOnAttributes.Any();
                 if (sketchHasDependency)
                 {
-                    var dependencies = ActivateDependencies(dependsOnAttributes);
+                    var sketchDependsOnArr = dependsOnAttributes.ToArray();
+                    var dependencies = ActivateDependencies(sketchDependsOnArr);
                     activatedDependencies.AddRange(dependencies);
                 }
             }
