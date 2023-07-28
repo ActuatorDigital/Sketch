@@ -93,7 +93,8 @@ namespace Actuator.Sketch
             var filteredSketches = _sketches
                 .SelectMany(x => x.Fixtures)
                 .Where(x => x.FullName?.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >= 0 ||
-                            x.Description?.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >= 0);
+                            x.Description?.IndexOf(actualSearchString, StringComparison.InvariantCultureIgnoreCase) >=
+                            0);
 
             _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
             GUILayout.BeginVertical(EditorStyles.helpBox);
@@ -227,16 +228,16 @@ namespace Actuator.Sketch
         private void Awake()
         {
             var playIconPath = "Packages/com.actuator.sketch/Editor/PlayIcon.png";
-            _playIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(playIconPath, typeof(Texture2D));
+            _playIcon = (Texture2D) AssetDatabase.LoadAssetAtPath(playIconPath, typeof(Texture2D));
 
             var editIconPath = "Packages/com.actuator.sketch/Editor/EditIcon.png";
-            _editIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(editIconPath, typeof(Texture2D));
+            _editIcon = (Texture2D) AssetDatabase.LoadAssetAtPath(editIconPath, typeof(Texture2D));
 
             var unpinnedIconPath = "Packages/com.actuator.sketch/Editor/UnpinnedIcon.png";
-            _unpinnedIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(unpinnedIconPath, typeof(Texture2D));
+            _unpinnedIcon = (Texture2D) AssetDatabase.LoadAssetAtPath(unpinnedIconPath, typeof(Texture2D));
 
             var pinnedIconPath = "Packages/com.actuator.sketch/Editor/PinnedIcon.png";
-            _pinnedIcon = (Texture2D)AssetDatabase.LoadAssetAtPath(pinnedIconPath, typeof(Texture2D));
+            _pinnedIcon = (Texture2D) AssetDatabase.LoadAssetAtPath(pinnedIconPath, typeof(Texture2D));
 
             RefreshSketchList();
         }
@@ -251,17 +252,17 @@ namespace Actuator.Sketch
         {
             _sketches.Clear();
             var locator = new SketchAssetLocator();
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies()) {
-
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
                 var fixtures = new List<SketchFixture>();
                 foreach (var type in assembly.GetTypes())
                 {
                     if (type.IsAbstract) continue;
-                    var sketchFixtureAttribute = (SketchFixtureAttribute)Attribute
+                    var sketchFixtureAttribute = (SketchFixtureAttribute) Attribute
                         .GetCustomAttribute(type, typeof(SketchFixtureAttribute));
                     if (sketchFixtureAttribute == null) continue;
 
-                    var descriptionAttribute = (SketchDescriptionAttribute)Attribute
+                    var descriptionAttribute = (SketchDescriptionAttribute) Attribute
                         .GetCustomAttribute(type, typeof(SketchDescriptionAttribute));
                     var description = descriptionAttribute?.Description;
 
@@ -276,7 +277,7 @@ namespace Actuator.Sketch
                     fixtures.Add(sketchFixture);
                 }
 
-                if(fixtures.Any())
+                if (fixtures.Any())
                     _sketches.Add(new SketchAssembly(assembly.GetName().Name, fixtures.ToArray()));
             }
         }

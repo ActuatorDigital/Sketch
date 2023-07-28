@@ -16,7 +16,6 @@ As of version 0.1.0, we've made a significant update to our framework - the top-
 For the Unity Editor to recognise and run sketches, they must:
 1. The sketch class must have the `[SketchFixture]` attribute.
 2. Inherit from MonoBehaviour or ScriptableObject.
-3. **(Updated in version 0.1.0)** While it was previously required that the sketch class exists inside of an assembly with a name ending in ".Sketches", this requirement has been removed to accommodate less structured projects. However, maintaining a clear structure in your project is still recommended when possible.
 
 ### Running
 
@@ -41,7 +40,7 @@ By adding this attribute along with the given dependency type and implementation
 
 #### Overriding Dependencies
 
-From version 0.1.0 onwards, users can add more specific dependency injection for subclasses of sketches, providing greater flexibility when extending abstract sketches. This is done using the new `SketchDependsOverrideAttribute`.
+From version 0.1.1 onwards, users can add more specific dependency injection for subclasses of sketches, providing greater flexibility when extending abstract sketches. This is done using the new `SketchDependsOverrideAttribute`.
 
 This feature might be particularly useful if you're using Flume with many sketches with shared behaviour, where varied behaviour from inherited or abstract sketches is desired.
 
