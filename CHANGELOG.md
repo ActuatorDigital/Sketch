@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Introduced `SketchDependsOverrideAttribute`, allowing for more specific dependency injection for subclasses of sketches. This provides greater flexibility when extending abstract sketches.
 - Removed the requirement for the ".Sketches" assembly naming convention. Users can now create and run sketches without adhering to this convention, allowing for more flexibility in less structured projects.
 
+### Changed
+- While it was previously required that the sketch class exists inside of an assembly with a name ending in ".Sketches", this requirement has been removed to accommodate less structured projects. However, maintaining a clear structure in your project is still recommended when possible.
+
 ## [0.1.0]
 
 ### Changed
