@@ -76,7 +76,11 @@ namespace Actuator.Sketch
             const string FilterSearchTextControlName = "SketchFilterSearchBoxName";
             GUI.SetNextControlName(FilterSearchTextControlName);
             _searchString = GUILayout.TextField(_searchString, EditorStyles.toolbarSearchField);
+#if UNITY_2022_3_OR_NEWER
+            if (GUILayout.Button("", GUI.skin.FindStyle("ToolbarSearchCancelButton")))
+#else
             if (GUILayout.Button("", GUI.skin.FindStyle("ToolbarSeachCancelButton")))
+#endif
             {
                 // Remove focus if cleared
                 _searchString = string.Empty;
