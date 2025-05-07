@@ -6,7 +6,7 @@
   "author": "Actuator Digital",
   "type": "library",
   "dependencies": {
-    "com.air.flume": "0.0.4"
+    "com.actuator.flume": "0.1.0"
   },
   "samples": [
     {
